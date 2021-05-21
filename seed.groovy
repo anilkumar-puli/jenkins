@@ -31,7 +31,7 @@ for (i in 0..count) {
             }
           }
         }
-        'scriptPath'('Jenkinsfile')
+        'scriptPath'('jenkinsfile')
         'lightweight'(true)
       }
     }
