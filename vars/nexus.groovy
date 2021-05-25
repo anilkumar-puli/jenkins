@@ -3,7 +3,7 @@ def nexus(COMPONENT) {
   def get_branch_exec=sh(returnStdout: true, script: get_branch)
   def FILENAME=COMPONENT+'-'+get_branch_exec+'.zip'
 
-  command = "curl -f -v -u admin:admin --upload-file ${FILENAME} http://172.31.79.149:8081/repository/${COMPONENT}/${FILENAME}"
+  command = "curl -f -v -u admin:admin --upload-file ${FILENAME} http://172.31.1.190:8081/repository/${COMPONENT}/${FILENAME}"
   def execute_state=sh(returnStdout: true, script: command)
 }
 
@@ -13,7 +13,7 @@ def make_artifacts(APP_TYPE, COMPONENT) {
   println("abc${get_branch_exec}abc")
   def FILENAME=COMPONENT+'-'+get_branch_exec+'.zip'
   if(APP_TYPE == "NGINX") {
-    command = "cd static && zip -r ../${FILENAME} *"
+    command = " zip -r ${FILENAME} node_modules dist"
     def execute_com=sh(returnStdout: true, script: command)
     print execute_com
   } else if(APP_TYPE == "NODEJS") {
@@ -24,8 +24,8 @@ def make_artifacts(APP_TYPE, COMPONENT) {
     command = "cp target/*.jar ${COMPONENT}.jar && zip -r ${FILENAME} ${COMPONENT}.jar"
     def execute_com=sh(returnStdout: true, script: command)
     print execute_com
-  } else if(APP_TYPE == "PYTHON") {
-    command = "zip -r ${FILENAME} payment.ini payment.py rabbitmq.py requirements.txt"
+  } else if(APP_TYPE == "GOLANG") {
+    command = "zip -r ${FILENAME} login-ci main.go user.go tracing.go"
     def execute_com=sh(returnStdout: true, script: command)
     print execute_com
   }
@@ -40,5 +40,14 @@ def code_build(APP_TYPE, COMPONENT) {
     command = "mvn clean package"
     def execute_com=sh(returnStdout: true, script: command)
     print execute_com
+  } else if(APP_TYPE == "GOLANG") {
+    command = "go get -d && go build"
+    def execute_com=sh(returnStdout: true, script: command)
+    print execute_com
+  } else if(APP_TYPE == "NGINX") {
+    command = "npm install && npm run build"
+    def execute_com=sh(returnStdout: true, script: command)
+    print execute_com
+  
   }
 }
