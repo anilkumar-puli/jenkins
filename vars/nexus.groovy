@@ -30,7 +30,6 @@ def make_artifacts(APP_TYPE, COMPONENT) {
     print execute_com
   }
 }
-
 def code_build(APP_TYPE, COMPONENT) {
   if(APP_TYPE == "NODEJS") {
     command = "npm install"
