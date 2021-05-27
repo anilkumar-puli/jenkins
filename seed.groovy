@@ -2,7 +2,6 @@ folder('CI-Pipelines') {
   displayName('CI Pipelines')
   description('CI Pipelines')
 }
-
 def component = ["users","login","todo","frontend"];
 
 def count=(component.size()-1)
