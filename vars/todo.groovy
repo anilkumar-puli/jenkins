@@ -22,7 +22,6 @@ def call(Map params = [:]) {
       SLAVE_LABEL   = "${args.SLAVE_LABEL}"
       APP_TYPE      = "${args.APP_TYPE}"
     }
-
     stages {
 
       stage('Build Code & Install Dependencies') {
